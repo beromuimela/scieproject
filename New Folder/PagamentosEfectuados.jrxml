@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe8d41e9-ece4-447b-a5a5-c6e6e4514b76">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="datai" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataf" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     movimento.`idmovimento` AS movimento_idmovimento,
+     movimento.`datamovimento` AS movimento_datamovimento,
+     movimento.`valor` AS movimento_valor,
+     movimento.`responsavel` AS movimento_responsavel,
+     movimento.`historico` AS movimento_historico
+FROM
+     `movimento` movimento
+WHERE
+     movimento.datamovimento BETWEEN $P{datai}and$P{dataf}
+     and movimento.tipoMovimento = "PAGAMENTO"]]>
+	</queryString>
+	<field name="movimento_idmovimento" class="java.lang.Integer"/>
+	<field name="movimento_datamovimento" class="java.sql.Timestamp"/>
+	<field name="movimento_valor" class="java.lang.Float"/>
+	<field name="movimento_responsavel" class="java.lang.String"/>
+	<field name="movimento_historico" class="java.lang.String"/>
+	<variable name="movimento_valor_1" class="java.lang.Float" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{movimento_valor}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="44563b84-89a6-4f83-a9ba-3e6ee70827c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pagamentos Efectuados]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="1" width="554" height="1" uuid="69023fb1-a89c-4c63-a091-c9bc13bdeb0d"/>
+			</line>
+			<line>
+				<reportElement x="1" y="78" width="554" height="1" uuid="60af1885-6971-4b08-ab51-6709c928ffc5"/>
+			</line>
+			<image>
+				<reportElement x="1" y="0" width="405" height="77" uuid="bc9909b9-1508-4c0c-9812-b08efe7dec25"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20" uuid="17ac4506-8891-4523-aeb7-6ed71c05a59a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="0" width="95" height="20" uuid="664ff6eb-7d03-44ed-a840-50384054570d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data do Movimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="54" height="20" uuid="dae6a08a-68ce-4f57-a3c8-8b13deaa2b6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="0" width="111" height="20" uuid="25b90be8-6e8b-4fbc-b1e8-3879d07f643a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responasvel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="0" width="111" height="20" uuid="e6da3649-f748-4151-a90b-5df9bb0bc692"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Historico]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="554" height="1" uuid="ea926bf4-258c-4bee-910f-2e6dfb88dc96"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="55" height="20" uuid="1509b62c-f97e-47ca-a0da-f8046f0a5779"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_idmovimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="55" y="0" width="95" height="20" uuid="7ed02226-3ba6-4761-b18a-932770d4fa4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_datamovimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="54" height="20" uuid="242a1236-401f-4735-96ad-f33a2ff34be5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="0" width="180" height="20" uuid="946de2d3-ba75-4c27-bb21-aed0658d4f0b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_responsavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="0" width="171" height="20" uuid="db767b3a-9d43-4fab-b00c-44532d4bc1e9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_historico}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="1" y="0" width="554" height="1" isPrintInFirstWholeBand="true" uuid="dc1ab967-2b31-45ab-b7b5-41399dee61c4"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="502" y="0" width="53" height="20" uuid="028483c4-3498-4ce4-8f44-6421fa7e9d7c"/>
+				<textFieldExpression><![CDATA[$V{movimento_valor_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="473" y="0" width="29" height="20" uuid="c27d4761-8dbc-48ec-b72d-db67a190916d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="524" y="0" width="31" height="20" uuid="3950302d-32bf-4fb5-bde4-f595efd9a24e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="54" height="20" uuid="5e803645-5400-4848-9d1d-dfd464a1c28d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="0" width="149" height="20" uuid="f7987c04-4cab-4921-a29c-7db4283fbe28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

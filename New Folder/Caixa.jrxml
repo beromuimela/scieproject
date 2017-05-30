@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4adf4fae-9289-498f-bd93-ec47af65cb84">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datai" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataf" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     caixa.`idcaixa` AS caixa_idcaixa,
+     caixa.`abertura` AS caixa_abertura,
+     caixa.`datacaixa` AS caixa_datacaixa,
+     caixa.`aberto` AS caixa_aberto,
+     utilizador.`nome` AS utilizador_nome,
+     caixa.`pagamento` AS caixa_pagamento,
+     caixa.`saida` AS caixa_saida,
+     caixa.`total` AS caixa_total
+FROM
+     `utilizador` utilizador INNER JOIN `caixa` caixa ON utilizador.`idutilizador` = caixa.`idutilizador`
+WHERE caixa.datacaixa between $P{datai} and $P{dataf}
+ORDER BY
+     caixa.idcaixa ASC]]>
+	</queryString>
+	<field name="caixa_idcaixa" class="java.lang.Integer"/>
+	<field name="caixa_abertura" class="java.lang.Float"/>
+	<field name="caixa_datacaixa" class="java.sql.Timestamp"/>
+	<field name="caixa_aberto" class="java.lang.Integer"/>
+	<field name="utilizador_nome" class="java.lang.String"/>
+	<field name="caixa_pagamento" class="java.lang.Float"/>
+	<field name="caixa_saida" class="java.lang.Float"/>
+	<field name="caixa_total" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="457fb49a-1d72-407b-b921-6b6411de4e35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caixa]]></text>
+			</staticText>
+			<image>
+				<reportElement x="11" y="14" width="258" height="65" uuid="99da822a-c97d-42bb-8228-a4ab49152638"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="20" uuid="a482cdbe-1960-4cfe-9321-cd2dc6b108b9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No intervalo de:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="0" width="113" height="20" uuid="e5412099-727c-4bbe-bbfc-bcea6e2a097b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="100" height="20" uuid="0d7b7843-7a1d-422e-b9f2-3362d7b40f8a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="205" y="0" width="14" height="20" uuid="bb52d470-debe-4a9a-8f7b-eaea432165c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="11" splitType="Stretch">
+			<printWhenExpression><![CDATA[getClass().getResource($P{SUBREPORT_DIR} + "Caixa_movimentos.jasper")!=null]]></printWhenExpression>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="154" splitType="Stretch">
+			<printWhenExpression><![CDATA[getClass().getResource($P{SUBREPORT_DIR} + "Caixa_movimentos.jasper")!=null]]></printWhenExpression>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="6492d394-9422-45f8-802d-efe4def50141"/>
+			</rectangle>
+			<textField>
+				<reportElement x="34" y="0" width="24" height="20" uuid="57f7a740-bfcd-4c7f-bd43-154d35997a2e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_idcaixa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="34" height="20" uuid="ec25ab8a-742b-41e4-ab58-2e0cb7065f4f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caixa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="154" y="0" width="115" height="20" uuid="fcd70176-fcfe-49f7-8462-7b067bc319cb"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_datacaixa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="69" y="0" width="85" height="20" uuid="6448c31e-fba5-4df9-a5b0-ca860ff48c36"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de abertura:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="0" width="114" height="20" uuid="b7501b22-41dc-4a47-81f3-32e0608b33cd"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utilizador_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="289" y="0" width="57" height="20" uuid="63c92414-df7e-453d-a668-a81b84556153"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aberto por:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="30" width="555" height="124" uuid="4688122a-3ad2-44c2-8edc-4752a7c59989"/>
+				<subreportParameter name="total">
+					<subreportParameterExpression><![CDATA[$F{caixa_total}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="caixa">
+					<subreportParameterExpression><![CDATA[$F{caixa_idcaixa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="abertura">
+					<subreportParameterExpression><![CDATA[$F{caixa_abertura}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="saida">
+					<subreportParameterExpression><![CDATA[$F{caixa_saida}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pagamento">
+					<subreportParameterExpression><![CDATA[$F{caixa_pagamento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[getClass().getResource($P{SUBREPORT_DIR} + "Caixa_movimentos.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="531" y="0" width="24" height="20" uuid="ff62423f-cb57-454e-b463-5db02b22614f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="123" height="20" uuid="9caea9de-8b50-46d4-9d05-7f5387f56a2b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="20" uuid="3f20f447-7cda-4f4b-a201-bb2329c643a1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

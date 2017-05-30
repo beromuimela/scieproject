@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotasPorPeriodo_estudantes_Notas" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3b464b19-f73d-442a-ba22-be791caaedec">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="estudante" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     estudante_pacotes.`data` AS estudante_pacotes_data,
+     estudante_pacotes.`nota` AS estudante_pacotes_nota,
+     pacotes.`nome` AS pacotes_nome
+FROM
+     `pacotes` pacotes INNER JOIN `estudante_pacotes` estudante_pacotes ON pacotes.`idpacotes` = estudante_pacotes.`idpacotes`
+where estudante_pacotes.idestudante =$P{estudante}
+order by pacotes.nome]]>
+	</queryString>
+	<field name="estudante_pacotes_data" class="java.sql.Date"/>
+	<field name="estudante_pacotes_nota" class="java.lang.Float"/>
+	<field name="pacotes_nome" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="299" y="0" width="30" height="20" uuid="97b7df32-8fe3-4932-a841-5a68e29cdce4"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="52" height="20" uuid="37839ebc-d8af-4ebf-924d-d76463b6388f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="0" width="55" height="20" uuid="a877d643-bba4-49c2-817a-8ca1141adace"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pacote:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="-1" width="555" height="1" uuid="b50eb61d-dd53-495f-96c9-83b97f0eefbd"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="c9cf4d6e-9b3f-4c48-931b-e52f9742906b"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="234" y="0" width="52" height="20" uuid="b87de98f-4804-4409-828f-26512e4ff567"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estudante_pacotes_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="30" height="20" uuid="a363d4cd-a42d-4069-b3dd-e3c6c0428da0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estudante_pacotes_nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="0" width="196" height="20" uuid="bc7a64cf-1b0c-4bc3-9c8e-a198be1594f1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pacotes_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

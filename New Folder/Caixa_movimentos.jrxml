@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Caixa_movimentos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b589fc0c-c42f-49ae-9ae5-fef589db2d3b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="caixa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="abertura" class="java.lang.Float"/>
+	<parameter name="pagamento" class="java.lang.Float"/>
+	<parameter name="saida" class="java.lang.Float"/>
+	<parameter name="total" class="java.lang.Float"/>
+	<queryString>
+		<![CDATA[SELECT
+     movimento.`idmovimento` AS movimento_idmovimento,
+     movimento.`datamovimento` AS movimento_datamovimento,
+     movimento.`tipoMovimento` AS movimento_tipoMovimento,
+     movimento.`valor` AS movimento_valor,
+     movimento.`responsavel` AS movimento_responsavel,
+     utilizador.`nome` AS utilizador_nome
+FROM
+     `movimento` movimento INNER JOIN `caixa_movimento` caixa_movimento ON movimento.`idmovimento` = caixa_movimento.`idmovimento`
+     INNER JOIN `utilizador` utilizador ON movimento.`idutilizador` = utilizador.`idutilizador`
+WHERE
+     caixa_movimento.idcaixa = $P{caixa}]]>
+	</queryString>
+	<field name="movimento_idmovimento" class="java.lang.Integer"/>
+	<field name="movimento_datamovimento" class="java.sql.Timestamp"/>
+	<field name="movimento_tipoMovimento" class="java.lang.String"/>
+	<field name="movimento_valor" class="java.lang.Float"/>
+	<field name="movimento_responsavel" class="java.lang.String"/>
+	<field name="utilizador_nome" class="java.lang.String"/>
+	<variable name="movimento_valor_1" class="java.lang.Float" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{movimento_valor}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="534b508c-b4f0-463b-a136-1744303b547a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data do Movimento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="62" height="20" uuid="7007edf5-dc79-4f6a-a0d0-4e26768b0fb5"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Mov.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="0" width="54" height="20" uuid="fe48a94e-628a-48f9-b731-0c59ab93c1a8"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="0" width="82" height="20" uuid="76e4e85a-aadb-49f3-b09a-6bab85ef2454"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsavel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="55a9c460-f978-4608-bc0f-abfa79473e66"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="924f7ddf-4b05-4924-b584-5856c2cb10c6"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="442ad486-311e-4717-90a4-6667581b472a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_datamovimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="74" height="20" uuid="699aefda-9a4c-441b-bad0-2dd2564b5be7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_tipoMovimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="196" y="0" width="54" height="20" uuid="2df731f2-fbc4-4f21-aa1c-6747b42a1a3c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="0" width="182" height="20" uuid="20e39e2c-cd32-4d0b-af76-fe860d16c0dd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimento_responsavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="32985a96-afc5-4619-a068-a8fbefc9b7f4"/>
+				<textFieldExpression><![CDATA[$F{utilizador_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="2" y="0" width="553" height="1" isPrintInFirstWholeBand="true" uuid="65d0c6a8-73c6-4278-a7c0-9a8945c03963"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="102">
+			<staticText>
+				<reportElement x="369" y="31" width="105" height="20" uuid="9b81da5c-2a33-4ba6-b75c-e3ab016abb40"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Pagamento:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="474" y="31" width="81" height="20" uuid="ed0f7820-8717-4d9e-b852-9074a0bd8cfe"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{pagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="474" y="51" width="81" height="20" uuid="bbe012f9-ddfe-43ed-8e10-9593a60af1cb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{saida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="474" y="71" width="81" height="20" uuid="ecad4afe-a50c-4bc1-83ff-102d256e39dc"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{total}+$P{abertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="396" y="51" width="78" height="20" uuid="32a66d0f-971f-48a7-aa0d-c00e882b9383"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Saida:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="71" width="78" height="20" uuid="c2ad8b7a-6e9f-492a-bb80-47c16498447e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Caixa:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="474" y="11" width="81" height="20" uuid="dfd40bcd-b893-465b-9215-cee68cf2cdc9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{abertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="422" y="11" width="52" height="20" uuid="a6c50170-55a6-4fa7-9ba5-71e1678b4c4e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abertura:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

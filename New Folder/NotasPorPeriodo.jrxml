@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7dc30043-7f0e-46e5-971b-3ad1aa31e178">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     periodo.`id_nome` AS periodo_id_nome,
+     periodo.`datainicio` AS periodo_datainicio,
+     nome_periodo.`nome` AS nome_periodo_nome
+FROM
+     `nome_periodo` nome_periodo INNER JOIN `periodo` periodo ON nome_periodo.`id` = periodo.`id_nome`
+Where periodo.datafim is null
+Order by periodo.id_nome]]>
+	</queryString>
+	<field name="periodo_id_nome" class="java.lang.Integer"/>
+	<field name="periodo_datainicio" class="java.sql.Date"/>
+	<field name="nome_periodo_nome" class="java.lang.String"/>
+	<title>
+		<band height="91" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="11" width="68" height="57" uuid="e4a34860-3e33-4c37-9d14-e88ae4adc927"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="d6e6575c-7db2-491a-b810-4a4ab3ae75a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Notas dos Estudantes Por Periodo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="9044cca4-fbf3-4136-8302-060f91f8929a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="79" width="558" height="1" uuid="575268a3-d6e7-4c22-bc40-b6e1f3c60b60"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20"/>
+	</columnHeader>
+	<detail>
+		<band height="174" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="b3f838ea-999d-46d7-a0d4-e52489766103"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="458" y="0" width="74" height="20" forecolor="#0000FF" uuid="128800e1-2bcd-4452-a856-45298a24494e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodo_datainicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="0" width="72" height="20" forecolor="#0000FF" uuid="5746bfc7-fb0d-4e32-b05a-3fe68db8c5d6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_periodo_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="0" width="55" height="20" forecolor="#0000FF" uuid="86af9621-5c0e-47ce-b90e-13a26573df9d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="87" height="20" forecolor="#0000FF" uuid="eef0a5a4-9f97-4e0d-96ba-05354164c2f8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Inicio:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="31" width="555" height="143" uuid="37da8cd1-15e3-4736-8812-0fcfa8f8b415"/>
+				<subreportParameter name="datainicio">
+					<subreportParameterExpression><![CDATA[$F{periodo_datainicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nomePeriodo">
+					<subreportParameterExpression><![CDATA[$F{periodo_id_nome}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[getClass().getResource($P{SUBREPORT_DIR} + "NotasPorPeriodo_estudantes.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="532" y="0" width="26" height="20" uuid="307fb247-9917-4674-92da-eacfb8c1e35a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="0" width="51" height="20" uuid="fe6b6758-0045-4faf-88c9-01800caec1a8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="53" y="0" width="176" height="20" uuid="dba9efd2-767d-4acf-a2ad-db8fd0fd1547"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

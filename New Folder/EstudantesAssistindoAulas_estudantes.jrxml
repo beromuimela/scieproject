@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudantesCurtindoAulas_estudantes" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a019e307-6ed3-4011-a3ba-2b05efea1211">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomePeriodo" class="java.lang.Integer"/>
+	<parameter name="inicio" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     estudante.`idestudante` AS estudante_idestudante,
+     estudante.`id_nome` AS id_nome,
+     estudante.`datainicio` AS datainicio,
+     candidato.`nome` AS candidato_nome,
+     candidato.`apelido` AS candidato_apelido
+FROM
+     `candidato` candidato INNER JOIN `estudante` estudante ON candidato.`idcandidato` = estudante.`idcandidato`
+WHERE estudante.activo=1 and estudante.terminouCurso=0 and estudante.id_nome LIKE $P{nomePeriodo} and estudante.datainicio LIKE $P{inicio}
+ORDER BY estudante.id_nome]]>
+	</queryString>
+	<field name="estudante_idestudante" class="java.lang.Integer"/>
+	<field name="id_nome" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datainicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="candidato_nome" class="java.lang.String"/>
+	<field name="candidato_apelido" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="23" height="20" uuid="7511f230-e6b0-490b-bb57-169e9f56e505"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="0" width="84" height="20" uuid="4ea059bd-0383-49f7-ac65-711696fc88eb"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo:]]></text>
+			</staticText>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="555" height="1" isPrintInFirstWholeBand="true" uuid="36030294-0394-4c20-a810-ad3f3293da10"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="23" height="20" uuid="1ba829e2-e039-4066-ac71-2efe53e03c4e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{estudante_idestudante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="0" width="274" height="20" uuid="95e73ea7-6013-4bc0-bbbf-6cd6c6256f03"/>
+				<textFieldExpression><![CDATA[$F{candidato_nome}+" "+$F{candidato_apelido}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="555" height="1" isPrintInFirstWholeBand="true" uuid="19fa31e3-49f0-4472-ae7f-8e992011cad2"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

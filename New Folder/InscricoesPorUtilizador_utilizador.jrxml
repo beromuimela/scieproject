@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InscricoesPorUtilizador_utilizador" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="00d4181f-e861-4adb-8e49-6d498bdf1f91">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="utilizador" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datai" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataf" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Inscricao.`idmatricula` AS Inscricao_idmatricula,
+     Inscricao.`datainscricao` AS Inscricao_datainscricao,
+     Inscricao.`valor` AS Inscricao_valor,
+     curso.`nome` AS curso_nome,
+     candidato.`nome` AS candidato_nome,
+     candidato.`apelido` AS candidato_apelido,
+     periodo.`datainicio` AS periodo_datainicio,
+     nome_periodo.`nome` AS nome_periodo_nome
+FROM
+     `curso` curso INNER JOIN `Inscricao` Inscricao ON curso.`id` = Inscricao.`idcurso`
+     INNER JOIN `candidato` candidato ON Inscricao.`idcandidato` = candidato.`idcandidato`
+     INNER JOIN `periodo` periodo ON Inscricao.`id_nome` = periodo.`id_nome`
+     AND periodo.`datainicio` = Inscricao.`datainicio`
+     AND curso.`id` = periodo.`idcurso`
+     INNER JOIN `nome_periodo` nome_periodo ON periodo.`id_nome` = nome_periodo.`id`
+where inscricao.idutilizador LIKE $P{utilizador} and inscricao.datainscricao between $P{datai} and $P{dataf}
+]]>
+	</queryString>
+	<field name="Inscricao_idmatricula" class="java.lang.Integer"/>
+	<field name="Inscricao_datainscricao" class="java.sql.Date"/>
+	<field name="Inscricao_valor" class="java.lang.Float"/>
+	<field name="curso_nome" class="java.lang.String"/>
+	<field name="candidato_nome" class="java.lang.String"/>
+	<field name="candidato_apelido" class="java.lang.String"/>
+	<field name="periodo_datainicio" class="java.sql.Date"/>
+	<field name="nome_periodo_nome" class="java.lang.String"/>
+	<variable name="Inscricao_valor_1" class="java.lang.Float" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Inscricao_valor}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="18" height="20" uuid="3a390dfa-1785-48a9-b556-2b74569809be"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="0" width="69" height="20" uuid="a0083164-b79f-4cda-9dd6-b4e843505017"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Insc.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="0" width="79" height="20" uuid="c345040c-5e3b-4383-bc61-7b0f3c78999c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montante Pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="-1" width="69" height="20" uuid="8be01225-ebac-4667-a561-725cd8a57f48"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Candidato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="0" width="74" height="20" uuid="d40bf385-d48e-4831-8b9d-cc393cf92b7e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="0" width="47" height="20" uuid="9d2a4ab0-8057-4f7c-9bd7-dc6559e77210"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="fc2724e5-f94b-4537-bc80-d654acc223fc"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="75448fd5-0113-4543-9b8d-40e44cb9a598"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="18" height="20" uuid="56a25bbc-f023-4bc2-8855-9dd909cd66f4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Inscricao_idmatricula}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="28" y="0" width="69" height="20" uuid="27c5327d-47ac-4f8d-81db-664eec2a0c9a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Inscricao_datainscricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="0" width="79" height="20" uuid="5eaf2f18-f550-42bb-95e4-84c030e2cb43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Inscricao_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="216" height="20" uuid="61a4581d-3d80-491e-a1e8-33c3b6d049d0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{candidato_nome}+" "+$F{candidato_apelido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="481" y="0" width="74" height="20" uuid="d6204c3e-0c01-4f12-9275-894110827066"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{periodo_datainicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="0" width="47" height="20" uuid="ec21dc92-80b9-42e8-bb3e-07191b739571"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome_periodo_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="508" y="0" width="47" height="20" uuid="902ab9cb-9b43-4af8-902c-2abac885d42e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{Inscricao_valor_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="423" y="0" width="85" height="20" uuid="f9d37c9f-35d4-420f-a37c-95c72c92b0e3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Recebido:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

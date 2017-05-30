@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudantesInactivos_estudantes" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0bcbf639-c807-4fd8-9955-f4c826e74e47">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomePeriodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     estudante.`idestudante` AS idestudante,
+     candidato.`nome` AS nome,
+     candidato.`apelido` AS apelido,
+     estudante.`motivo` AS motivo
+FROM
+    estudante,candidato
+WHERE estudante.idcandidato=candidato.idcandidato and estudante.activo=0 and estudante.terminouCurso=0
+and estudante.id_nome LIKE $P{nomePeriodo} and estudante.datainicio LIKE $P{inicio}
+Order by estudante.idestudante]]>
+	</queryString>
+	<field name="idestudante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apelido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="motivo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="55" y="0" width="111" height="20" uuid="4e9b5d83-99e8-4f11-b836-8cd4c2019bee"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="0" width="100" height="20" uuid="aeb72f8c-f0a2-4219-9c22-49a335d8ad90"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="44" height="20" uuid="df4a7402-8a1f-4e68-a0e8-39fe45ba32ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="2" width="555" height="1" isPrintInFirstWholeBand="true" uuid="ca17b14a-b82a-43e8-8385-cc76f38120be"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="44" height="20" uuid="4502486f-0645-4b98-b48f-f7454e5dbf40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idestudante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="0" width="256" height="20" uuid="d17af176-a6f4-4ecd-af8f-b6a4e73a8bd2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}+" "+$F{apelido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="0" width="100" height="20" uuid="f35f0920-8fe4-4379-9bdb-0db6b0037b5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="555" height="1" isPrintInFirstWholeBand="true" uuid="dfad725b-de64-4351-a7cc-d8de8b89d200"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

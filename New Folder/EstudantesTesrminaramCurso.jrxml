@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9abc0f49-e32e-4ae8-8a97-7d00511dcb8a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="datai" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataf" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\junito\\Documents\\NetBeansProjects\\SCIE\\New Folder\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     periodo.`datainicio` AS datainicio,
+     periodo.`id_nome` AS nome,
+     periodo.`datafim` AS dfim,
+     nome_periodo.`nome` AS nome_periodo_nome
+FROM
+     `nome_periodo` nome_periodo INNER JOIN `periodo` periodo ON nome_periodo.`id` = periodo.`id_nome`
+WHERE periodo.datafim between $P{datai} and $P{dataf}
+order by periodo.id_nome,periodo.datainicio]]>
+	</queryString>
+	<field name="datainicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.Integer"/>
+	<field name="dfim" class="java.sql.Date"/>
+	<field name="nome_periodo_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="18" width="56" height="81" uuid="3d133888-b1ff-41fa-8584-e92a04ea76c4"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="99" uuid="1472f777-dd15-40ee-a9b4-9d8c21aa1890"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estudantes que terminaram o curso]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="51526ada-85c0-421b-a6ce-28872d0158bf"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20"/>
+	</columnHeader>
+	<detail>
+		<band height="176" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="0" width="553" height="20" uuid="8e1c8b66-bbee-485d-afbf-d628918cc071"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="0" width="42" height="20" uuid="bc80f0cd-4eb6-4a24-9db3-eca4134ddfe4"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="0" width="60" height="20" uuid="6a24fa3b-6d72-4489-ab49-ed24da205191"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_periodo_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="0" width="74" height="20" uuid="5891f666-2700-47e3-af65-824b33ab5a79"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Inicio:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="195" y="0" width="73" height="20" uuid="307e8977-6f15-43c0-8514-26321bf746f5"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datainicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="388" y="0" width="87" height="20" uuid="7e711a0d-a80f-4e79-aab0-af28d85eee2c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Termino:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="475" y="0" width="69" height="20" uuid="79a58add-5e98-49a0-93a9-55fdbfd88798"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dfim}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="30" width="555" height="131" uuid="51661bee-8e18-4f99-8238-bc85a84646ad"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[getClass().getResource($P{SUBREPORT_DIR} + "EstudantesTesrminaramCurso_estudantes.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="524" y="0" width="31" height="20" uuid="c43f0d9b-85d8-4030-9d71-f44d7b41753c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="0" width="56" height="20" uuid="5012289f-3101-4805-b73f-5d10270b429e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="58" y="0" width="137" height="20" uuid="7e369120-cc62-4082-a25f-eb7d1345f8ae"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

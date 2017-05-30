@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudantesComPagamentoPorEfectuar_Estudantes" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="532a4dbf-10a0-4e98-b791-cabbccb5d130">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomePeriodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datainicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     estudante.`idestudante` AS estudante_idestudante,
+     estudante.`saldo` AS estudante_saldo,
+     candidato.`nome` AS candidato_nome,
+     candidato.`apelido` AS candidato_apelido,
+     estudante.`activo` AS estudante_activo
+FROM
+     `candidato` candidato INNER JOIN `estudante` estudante ON candidato.`idcandidato` = estudante.`idcandidato`
+WHERE
+     estudante.id_nome = $P{nomePeriodo}
+     and estudante.datainicio = $P{datainicio}
+     and estudante.saldo > 0
+ORDER BY
+     estudante.idestudante ASC]]>
+	</queryString>
+	<field name="estudante_idestudante" class="java.lang.Integer"/>
+	<field name="estudante_saldo" class="java.lang.Float"/>
+	<field name="candidato_nome" class="java.lang.String"/>
+	<field name="candidato_apelido" class="java.lang.String"/>
+	<field name="estudante_activo" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="29" height="20" uuid="d18cc1b0-4c2f-4167-adbd-008f9e85336d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="36" height="20" uuid="85bb56c6-6534-4223-b183-7f39f530ac1d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="0" width="85" height="20" uuid="0a38ce9e-3ea7-48bc-b274-6710cb84792a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="49c249c9-9c66-4305-9616-56c1b8871b1c"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="555" y="2" width="1" height="18" uuid="feecd12a-6a54-4250-bc58-e25bfa28a1bf"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="1" height="18" uuid="275814cb-6de5-4f96-8d09-5195f6e1cbf0"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="285" y="0" width="40" height="20" uuid="c8b05379-acbc-4904-a945-8a076543d913"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="29" height="20" uuid="136862ea-aef9-42f3-a151-7f3cafcff1e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estudante_idestudante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="36" height="20" uuid="a13a72ba-c6ad-4755-8db9-64b8bd5aab7a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estudante_saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="0" width="233" height="20" uuid="8b0fc6a1-75ea-4e1b-9b0f-958d9c35e72c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{candidato_nome}+" "+$F{candidato_apelido}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="1" width="555" height="1" isPrintInFirstWholeBand="true" uuid="b76ff27f-286c-4062-a5a6-a62b44538eba"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="285" y="0" width="100" height="20" uuid="34bd4fe7-6023-45a7-8efc-f8bc37481d53"/>
+				<textFieldExpression><![CDATA[( $F{estudante_activo}=='1' ? "Inactivo" : "Activo" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

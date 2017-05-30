@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17367234-7df9-466e-ad07-4c3ebf2fc01b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="datai" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataf" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     inscricao.`idmatricula` AS idmatricula,
+     inscricao.`datainscricao` AS datainscricao,
+     candidato.`nome` AS nome,
+     candidato.`apelido` AS apelido,
+     curso.`nome` AS curso_nome
+FROM
+     `candidato` candidato INNER JOIN `inscricao` inscricao ON candidato.`idcandidato` = inscricao.`idcandidato`
+     INNER JOIN `curso` curso ON inscricao.`idcurso` = curso.`id`
+WHERE inscricao.datainscricao between $P{datai} and $P{dataf}]]>
+	</queryString>
+	<field name="idmatricula" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datainscricao" class="java.util.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apelido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="curso_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="2" width="542" height="77" uuid="c15f96ca-4088-4330-aa05-5e981d4fc713"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="77" uuid="4553555e-c55e-47b7-9afc-0c520422eb82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inscricoes No Mes]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="7e8008c0-dbd3-4c3f-9d21-11f70e82653d"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="43" y="0" width="52" height="20" uuid="7acbd1a1-4867-40c0-a132-3116dbc53aff"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="86" height="20" uuid="124fb711-4719-467a-a270-aedfd6323d77"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Inscricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="0" width="111" height="20" uuid="98079441-8f59-4c1e-ab27-d83297db596b"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="37" height="20" uuid="b3d1ec1c-f114-4af1-ba39-f2fd46687921"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="0d3bb73b-e8c3-4362-9903-761aa89891b4"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="43" y="0" width="52" height="20" uuid="88ae45ea-50e5-4564-b61b-8ef2ecc8499e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idmatricula}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="111" y="0" width="86" height="20" uuid="e4aa9d34-8f6a-40a2-9b5d-c048251c12eb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datainscricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="0" width="226" height="20" uuid="b57d3b63-d1dd-47da-9976-6b2253a21505"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}+" "+$F{apelido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="88" height="20" uuid="d7abbf56-6e47-4826-b93f-c2df8a1160f4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{curso_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="555" height="1" isPrintInFirstWholeBand="true" uuid="db3a1e06-f237-40c0-a28a-116b77a55bc1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="521" y="0" width="34" height="20" uuid="9ca9e787-08a4-40f0-968c-608a0e00f69e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="43" y="0" width="52" height="20" uuid="83774163-e8b7-4226-a8e7-fb2e17adf00d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="0" width="127" height="20" uuid="48692a6a-b450-4c1a-9c46-99030e07497b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

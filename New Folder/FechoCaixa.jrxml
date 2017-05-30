@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bbe158ca-622c-4786-aa01-6f07b35b6ebe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataactual" class="java.sql.Timestamp"/>
+	<parameter name="util" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dataMovimento" class="java.lang.String">
+		<fieldDescription><![CDATA[dataMovimento]]></fieldDescription>
+	</field>
+	<field name="entradas" class="java.lang.Float">
+		<fieldDescription><![CDATA[entradas]]></fieldDescription>
+	</field>
+	<field name="historico" class="java.lang.String">
+		<fieldDescription><![CDATA[historico]]></fieldDescription>
+	</field>
+	<field name="responsavel" class="java.lang.String">
+		<fieldDescription><![CDATA[responsavel]]></fieldDescription>
+	</field>
+	<field name="saidas" class="java.lang.Float">
+		<fieldDescription><![CDATA[saidas]]></fieldDescription>
+	</field>
+	<field name="saldo" class="java.lang.Float">
+		<fieldDescription><![CDATA[saldo]]></fieldDescription>
+	</field>
+	<field name="tipoMovimento" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoMovimento]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Float">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="1" width="456" height="78" uuid="b7b8d4ee-aa1d-42d2-8ac9-098b73dfc747"/>
+				<imageExpression><![CDATA[getClass().getResource("\\icones\\gajm.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="910cf5ae-513a-41be-97ef-4831f9a0a592"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecho de Caixa]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="de8c2af6-3370-4518-99ba-94e2837fb38d"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="7ec43c2b-821a-4cbf-8225-2ab94a7a5aee"/>
+			</line>
+			<staticText>
+				<reportElement x="38" y="1" width="79" height="20" uuid="87596c77-5905-4e63-819f-0996ec90a400"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Fecho:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="1" width="152" height="20" uuid="68f31097-5bd6-4f6f-b57f-18eab1467b93"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{dataactual}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="0" width="102" height="20" uuid="fab90bbd-cab0-4a70-89c8-03bab4622d9c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Movimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="0" width="75" height="20" uuid="1ce257ff-101f-4388-895e-82072976a3f6"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsavel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="69" height="20" uuid="c4ac4458-4a0a-4995-8621-1fff6de440c3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Mov.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="0" width="52" height="20" uuid="1a64d8ce-2de5-4e59-9e68-b7322adb6f90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montante]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="8fbe6b89-9772-4b98-83bc-515b8205d265"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="38" y="0" width="102" height="20" uuid="d90993b3-0d2a-49e7-bb56-385fee773a4f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataMovimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="226" height="20" uuid="c89fa728-39db-41ad-9512-41b242f444a1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{responsavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="69" height="20" uuid="ea17f5ff-9b73-4fdd-b1b1-0762aa970d49"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoMovimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="229" y="0" width="52" height="20" uuid="560a8646-26db-49b2-b932-000adc5f158f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="60">
+			<rectangle>
+				<reportElement x="333" y="0" width="195" height="60" uuid="4633ffa8-233a-4558-91dd-7ee01b82b32d"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="#,##0.00">
+				<reportElement x="456" y="0" width="63" height="20" uuid="f035f33f-622b-49d7-b9ed-58166a185601"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{entradas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="344" y="0" width="112" height="20" uuid="126f9d0d-00bc-4d97-a475-7c11271ada4b"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Pagamentos:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="456" y="20" width="63" height="20" uuid="6bf28e11-5f81-46e0-969f-a815fea7b332"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saidas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="358" y="20" width="98" height="20" uuid="cfa10046-50a6-418b-9505-d8dc93b02d3a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Retiradas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="40" width="78" height="20" uuid="f11e211a-2b99-4cac-a872-75e17974aede"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total do Caixa:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="456" y="40" width="63" height="20" uuid="8a82f00d-1f47-43ee-83d8-63d25e1de864"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="528" y="0" width="27" height="20" uuid="846b9163-72b3-46d6-9e52-c17b9cfd349e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="20" uuid="d8578112-4172-4721-a461-ed478703176e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Utilizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="53" y="0" width="109" height="20" uuid="778a2737-037e-4675-916f-47757ecb0fd1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{util}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
